@@ -1,6 +1,5 @@
-package com.franklinharper.devplayground.network
+package com.franklinharper.kickstart.network
 
-import retrofit2.Call
 import retrofit2.http.GET
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Single

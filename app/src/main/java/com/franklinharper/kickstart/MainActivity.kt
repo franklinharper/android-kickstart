@@ -1,11 +1,11 @@
-package com.franklinharper.devplayground
+package com.franklinharper.kickstart
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import com.franklinharper.devplayground.network.LaMetroApi
+import com.franklinharper.kickstart.network.LaMetroApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers

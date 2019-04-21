@@ -1,4 +1,4 @@
-package com.franklinharper.devplayground
+package com.franklinharper.kickstart
 
 import org.junit.Test
 
