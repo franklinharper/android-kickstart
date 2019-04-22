@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // TODO next steps
+        // 1) database schema migrations
+        // 2) ?
         observeDb()
         refreshDbFromNetwork()
     }
