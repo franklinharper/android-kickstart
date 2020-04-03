@@ -22,11 +22,9 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.net.UnknownHostException
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val logTag = MainActivity::class.java.name
-
-    private val compositeDisposable = CompositeDisposable()
 
     private val driver: SqlDriver = AndroidSqliteDriver(Database.Schema, this, "transport.db")
     private val database = Database(driver)
@@ -43,13 +41,8 @@ class MainActivity : AppCompatActivity() {
         refreshDbFromNetwork()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.clear()
-    }
-
     private fun observeDb() {
-        agencyQueries
+        compositeDisposable += agencyQueries
             .selectAll()
             .asObservable(Schedulers.io())
             .mapToList()
@@ -61,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                 // Crash asap to make development easier.
                 // TODO productionize crash handling (e.g. use Crashlytics)
                 throw throwable
-            }).also { compositeDisposable.addAll(it) }
+            })
     }
 
     private fun refreshDbFromNetwork() {
@@ -77,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
         val laMetroApi = retrofit.create(LaMetroApi::class.java)
         progressIndicator.visibility = View.VISIBLE
-        laMetroApi
+        compositeDisposable += laMetroApi
             .listAgencies()
             .subscribeOn(Schedulers.io())
             // For demo purposes, delay to ensure that the spinner has time to show and animate
@@ -102,6 +95,6 @@ class MainActivity : AppCompatActivity() {
                             throw throwable
                     }
                 }
-            ).also { compositeDisposable.add(it) }
+            )
     }
 }
